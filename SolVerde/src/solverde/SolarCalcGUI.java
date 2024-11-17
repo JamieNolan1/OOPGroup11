@@ -44,9 +44,9 @@ public class SolarCalcGUI extends javax.swing.JFrame {
         jSlider1 = new javax.swing.JSlider();
         noOfPanels = new javax.swing.JComboBox<>();
         RoofMatInput = new javax.swing.JComboBox<>();
+        SolarCalc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(392, 740));
         setSize(new java.awt.Dimension(392, 740));
 
         SolarCalcBackPanel.setBackground(new java.awt.Color(76, 181, 181));
@@ -111,6 +111,15 @@ public class SolarCalcGUI extends javax.swing.JFrame {
         RoofMatInput.setFont(new java.awt.Font("Gill Sans MT Ext Condensed Bold", 0, 24)); // NOI18N
         RoofMatInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Roof Material", "Slate", "Concrete", "Asphalt", "Thatched", "Metal", "GreenRoof" }));
 
+        SolarCalc.setBackground(new java.awt.Color(72, 211, 156));
+        SolarCalc.setFont(new java.awt.Font("Gill Sans MT Ext Condensed Bold", 0, 30)); // NOI18N
+        SolarCalc.setText("Home Page");
+        SolarCalc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SolarCalcActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout SolarCalcBackPanelLayout = new javax.swing.GroupLayout(SolarCalcBackPanel);
         SolarCalcBackPanel.setLayout(SolarCalcBackPanelLayout);
         SolarCalcBackPanelLayout.setHorizontalGroup(
@@ -141,18 +150,24 @@ public class SolarCalcGUI extends javax.swing.JFrame {
                                 .addGap(56, 56, 56)
                                 .addGroup(SolarCalcBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(LocationSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(RoofDimensionInput, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(RoofDimensionInput, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 54, Short.MAX_VALUE))
+                    .addGroup(SolarCalcBackPanelLayout.createSequentialGroup()
+                        .addGroup(SolarCalcBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(CalculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(SolarCalcBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)))
+                        .addGroup(SolarCalcBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(SolarCalcBackPanelLayout.createSequentialGroup()
-                                .addGroup(SolarCalcBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(CalculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(SolarCalcBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel6)))
                                 .addGap(25, 25, 25)
                                 .addGroup(SolarCalcBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(noOfPanels, 0, 136, Short.MAX_VALUE)
-                                    .addComponent(RoofMatInput, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 54, Short.MAX_VALUE))))
+                                    .addComponent(RoofMatInput, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(55, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SolarCalcBackPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(SolarCalc))))))
         );
         SolarCalcBackPanelLayout.setVerticalGroup(
             SolarCalcBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +176,7 @@ public class SolarCalcGUI extends javax.swing.JFrame {
                 .addComponent(SolarCalcTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(SolarCalcBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(RoofDimensionInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -185,9 +200,12 @@ public class SolarCalcGUI extends javax.swing.JFrame {
                 .addGroup(SolarCalcBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(RoofMatInput, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(CalculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGroup(SolarCalcBackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SolarCalcBackPanelLayout.createSequentialGroup()
+                        .addComponent(CalculateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addComponent(SolarCalc, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -215,6 +233,14 @@ public class SolarCalcGUI extends javax.swing.JFrame {
     private void RoofDimensionInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoofDimensionInputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_RoofDimensionInputActionPerformed
+
+    private void SolarCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SolarCalcActionPerformed
+        //Adds the function to the Solar calc butto to bring the user to the solar calc page//
+        mainGUI MainPageGUI = new mainGUI();
+        MainPageGUI.setVisible(true);
+        //closes the current page//
+        this.dispose();
+    }//GEN-LAST:event_SolarCalcActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,6 +284,7 @@ public class SolarCalcGUI extends javax.swing.JFrame {
     private javax.swing.JTextField RoofDimensionInput;
     private javax.swing.JComboBox<String> RoofMatInput;
     private javax.swing.JComboBox<String> RoofOrientation;
+    private javax.swing.JButton SolarCalc;
     private javax.swing.JPanel SolarCalcBackPanel;
     private javax.swing.JLabel SolarCalcTitle;
     private javax.swing.JLabel jLabel1;
