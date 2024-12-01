@@ -27,7 +27,7 @@ public class mainGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         backPanel = new javax.swing.JPanel();
-        TitleBtn = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         SolarCalc = new javax.swing.JButton();
         InstallGuide = new javax.swing.JButton();
         CostPlanner = new javax.swing.JButton();
@@ -42,10 +42,10 @@ public class mainGUI extends javax.swing.JFrame {
 
         backPanel.setBackground(new java.awt.Color(76, 181, 181));
 
-        TitleBtn.setBackground(new java.awt.Color(255, 153, 51));
-        TitleBtn.setFont(new java.awt.Font("Gill Sans MT Ext Condensed Bold", 0, 48)); // NOI18N
-        TitleBtn.setForeground(new java.awt.Color(255, 153, 0));
-        TitleBtn.setText("SOL VERDE");
+        jLabel1.setBackground(new java.awt.Color(255, 153, 51));
+        jLabel1.setFont(new java.awt.Font("Gill Sans MT Ext Condensed Bold", 0, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel1.setText("SOL VERDE");
 
         SolarCalc.setBackground(new java.awt.Color(72, 211, 156));
         SolarCalc.setFont(new java.awt.Font("Gill Sans MT Ext Condensed Bold", 0, 30)); // NOI18N
@@ -74,7 +74,6 @@ public class mainGUI extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
@@ -83,26 +82,29 @@ public class mainGUI extends javax.swing.JFrame {
         backPanel.setLayout(backPanelLayout);
         backPanelLayout.setHorizontalGroup(
             backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SolarCalc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(InstallGuide, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(CostPlanner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(backPanelLayout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(backPanelLayout.createSequentialGroup()
                         .addGap(89, 89, 89)
-                        .addComponent(TitleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1)))
                 .addContainerGap(49, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(SolarCalc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         backPanelLayout.setVerticalGroup(
             backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TitleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(108, 108, 108)
+                .addGap(131, 131, 131)
                 .addComponent(SolarCalc, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(InstallGuide, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,15 +132,27 @@ public class mainGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SolarCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SolarCalcActionPerformed
-        // TODO add your handling code here:
+     //Adds the function to the home button to bring the user to the home page//
+        SolarCalcGUI SolarPageGUI = new SolarCalcGUI();
+        SolarPageGUI.setVisible(true);
+        //closes the current page//
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_SolarCalcActionPerformed
 
     private void InstallGuideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InstallGuideActionPerformed
-        // TODO add your handling code here:
+         //Adds the function to the home button to bring the user to the home page//
+        InstallGuideGUI InstallPageGUI = new InstallGuideGUI();
+        InstallPageGUI.setVisible(true);
+        //closes the current page//
+        this.dispose();
     }//GEN-LAST:event_InstallGuideActionPerformed
 
     private void CostPlannerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CostPlannerActionPerformed
-        // TODO add your handling code here:
+         //Adds the function to the home button to bring the user to the home page//
+        CostPlanGUI CostPageGUI = new CostPlanGUI();
+        CostPageGUI.setVisible(true);
+        //closes the current page//
+        this.dispose();
     }//GEN-LAST:event_CostPlannerActionPerformed
 
     /**
@@ -180,8 +194,8 @@ public class mainGUI extends javax.swing.JFrame {
     private javax.swing.JButton CostPlanner;
     private javax.swing.JButton InstallGuide;
     private javax.swing.JButton SolarCalc;
-    private javax.swing.JLabel TitleBtn;
     private javax.swing.JPanel backPanel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
