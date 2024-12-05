@@ -95,6 +95,11 @@ public class CostPlanGUI extends javax.swing.JFrame {
         buttonGroup1.add(DailyRadioButton);
         DailyRadioButton.setFont(new java.awt.Font("Gill Sans MT Ext Condensed Bold", 0, 24)); // NOI18N
         DailyRadioButton.setText("Daily");
+        DailyRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DailyRadioButtonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(WeeklyRadioButton);
         WeeklyRadioButton.setFont(new java.awt.Font("Gill Sans MT Ext Condensed Bold", 0, 24)); // NOI18N
@@ -196,10 +201,7 @@ public class CostPlanGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(242, 242, 242))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -223,26 +225,26 @@ public class CostPlanGUI extends javax.swing.JFrame {
             String inputText = CostInput.getText();
             double currentCost = Double.parseDouble(inputText);
             
-            
-            //variable to store the amount the input price is reduced by
-            
-            double divisionPercentage = 0.0;
-            
-            // changes the amount that will be reduced based on the radio button selected
-            if(DailyRadioButton.isSelected()) {
-                divisionPercentage = 0.05;
-            } else if (WeeklyRadioButton.isSelected()) {
-                divisionPercentage = 0.15;
-            } else if (MonthlyRadioButton.isSelected()) {
-                divisionPercentage = 0.30;
-            } else if (AnnualRadioButton.isSelected()) {
-                divisionPercentage = 0.50;
+            //determine which calculator to use
+            CostCalculator calculator;
+            if(DailyRadioButton.isSelected()){
+                calculator = new DailyCalculator();
+            } else if (WeeklyRadioButton.isSelected()){
+                calculator = new WeeklyCalculator();
+            } else if (MonthlyRadioButton.isSelected()){
+                calculator = new MonthlyCalculator();
+            } else if (AnnualRadioButton.isSelected()){
+                calculator = new AnnualCalculator();
+            } else{
+                throw new IllegalStateException("No Radio button slected");
             }
-            // perform calculation for input based on the radioButton selected
-            double solarCost = currentCost * (1 - divisionPercentage);
+            
+            //perform the calculation
+            double solarCost = calculator.calculate(currentCost);
             
             //calculate the amount saved 
             double savings = currentCost - solarCost;
+            
             // generate an array of objects of random quotes
             RandomQuotes[] quotes = {
                 new RandomQuotes("By Switching to solar energy, you could go from spending"),
@@ -255,11 +257,14 @@ public class CostPlanGUI extends javax.swing.JFrame {
             Random random = new Random();
             RandomQuotes selectedQuote = quotes[random.nextInt(quotes.length)];
             
+            //get the division percentage from the selected calculator
+            double divisionPercentage = calculator.percentage;
+            
             //Build the Final Message, showing the random quote, the price entered vs the price recieved, the amount saved, and the percentage saved
             String resultMessage = selectedQuote.getQuote() + "\n" +
-                    "Current Cost: " +String.format("%.2f€", currentCost) + " to " +
-                    String.format("%.2f€", solarCost) + "\n" +
-                    "Savings: " + String.format("%.2f€", savings) + "\n" +
+                    "Current Cost: " +String.format("€%.2f", currentCost) + " to " +
+                    String.format("€%.2f", solarCost) + "\n" +
+                    "Savings: " + String.format("€%.2f", savings) + "\n" +
                     "You save " +(int)(divisionPercentage * 100) + "% by switching to solar energy!" + "\n"+
                     "Start Saving today by Switching to solar energy!";
             
@@ -270,6 +275,10 @@ public class CostPlanGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Please enter a valid number");
         }
     }//GEN-LAST:event_CalculateButtonActionPerformed
+
+    private void DailyRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DailyRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DailyRadioButtonActionPerformed
 
     /**
      * @param args the command line arguments
