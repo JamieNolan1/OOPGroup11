@@ -10,7 +10,7 @@ package solverde;
  */
 public class AnnualCalculator extends CostCalculator {
     public AnnualCalculator(){
-        super(0.50);
+        super(0.50); //50% price reduction for calculation
     }
 
 }

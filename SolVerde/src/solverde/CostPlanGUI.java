@@ -6,13 +6,14 @@ package solverde;
 
 import java.util.Random;
 import javax.swing.JOptionPane;
-
+import java.util.List;
+import java.util.ArrayList;
 /**
  *
  * @author jamie
  */
 public class CostPlanGUI extends javax.swing.JFrame {
-
+    private List<String> calculationHistory = new ArrayList<>(); // stores results from calculation to be displayed/deleted
     /**
      * Creates new form CostPlanGUI
      */
@@ -45,6 +46,9 @@ public class CostPlanGUI extends javax.swing.JFrame {
         MonthlyRadioButton = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         CostOutput = new javax.swing.JTextArea();
+        AddButton = new javax.swing.JButton();
+        DisplayButton = new javax.swing.JButton();
+        DeleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(76, 181, 181));
@@ -119,6 +123,30 @@ public class CostPlanGUI extends javax.swing.JFrame {
         CostOutput.setRows(5);
         jScrollPane2.setViewportView(CostOutput);
 
+        AddButton.setFont(new java.awt.Font("Gill Sans MT Ext Condensed Bold", 0, 18)); // NOI18N
+        AddButton.setText("Add");
+        AddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddButtonActionPerformed(evt);
+            }
+        });
+
+        DisplayButton.setFont(new java.awt.Font("Gill Sans MT Ext Condensed Bold", 0, 18)); // NOI18N
+        DisplayButton.setText("Display");
+        DisplayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DisplayButtonActionPerformed(evt);
+            }
+        });
+
+        DeleteButton.setFont(new java.awt.Font("Gill Sans MT Ext Condensed Bold", 0, 18)); // NOI18N
+        DeleteButton.setText("Delete");
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -137,7 +165,7 @@ public class CostPlanGUI extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(19, 19, 19))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -147,18 +175,22 @@ public class CostPlanGUI extends javax.swing.JFrame {
                                     .addComponent(MonthlyRadioButton)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
-                                .addComponent(DailyRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(DailyRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(AddButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(CostInput, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(DisplayButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CalculateButton))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(HomePage))
+                                .addComponent(DeleteButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(HomePage))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(CostInput, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(CalculateButton))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +221,11 @@ public class CostPlanGUI extends javax.swing.JFrame {
                         .addComponent(AnnualRadioButton))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HomePage)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(HomePage)
+                    .addComponent(AddButton)
+                    .addComponent(DisplayButton)
+                    .addComponent(DeleteButton))
                 .addGap(191, 191, 191))
         );
 
@@ -226,7 +262,7 @@ public class CostPlanGUI extends javax.swing.JFrame {
             double currentCost = Double.parseDouble(inputText);
             
             //determine which calculator to use
-            CostCalculator calculator;
+            CostCalculator calculator = null;
             if(DailyRadioButton.isSelected()){
                 calculator = new DailyCalculator();
             } else if (WeeklyRadioButton.isSelected()){
@@ -236,7 +272,7 @@ public class CostPlanGUI extends javax.swing.JFrame {
             } else if (AnnualRadioButton.isSelected()){
                 calculator = new AnnualCalculator();
             } else{
-                throw new IllegalStateException("No Radio button slected");
+                JOptionPane.showMessageDialog(this,"No Radio button slected");
             }
             
             //perform the calculation
@@ -280,6 +316,36 @@ public class CostPlanGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_DailyRadioButtonActionPerformed
 
+    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        String calcResult = CostOutput.getText();
+        if(!calcResult.isEmpty()){
+            calculationHistory.add(calcResult);
+            JOptionPane.showMessageDialog(this,"Result added to History!");
+            } else {
+            JOptionPane.showMessageDialog(this,"no result to add, please perform a calculation");
+        }
+    }//GEN-LAST:event_AddButtonActionPerformed
+
+    private void DisplayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisplayButtonActionPerformed
+        if(calculationHistory.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Results Saved");
+        } else {
+            StringBuilder history = new StringBuilder("Calculation History \n");
+            for (String result : calculationHistory){
+                history.append(result).append("\n");   
+            }
+            JOptionPane.showMessageDialog(this, history.toString());
+    }//GEN-LAST:event_DisplayButtonActionPerformed
+  }
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
+        if (calculationHistory.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Results Saved");
+             } else {
+                calculationHistory.remove(calculationHistory.size() - 1);
+                JOptionPane.showMessageDialog(this,"Last saved result Deleted");
+        }
+    }//GEN-LAST:event_DeleteButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -316,11 +382,14 @@ public class CostPlanGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddButton;
     private javax.swing.JRadioButton AnnualRadioButton;
     private javax.swing.JButton CalculateButton;
     private javax.swing.JTextField CostInput;
     private javax.swing.JTextArea CostOutput;
     private javax.swing.JRadioButton DailyRadioButton;
+    private javax.swing.JButton DeleteButton;
+    private javax.swing.JButton DisplayButton;
     private javax.swing.JButton HomePage;
     private javax.swing.JTextArea InfoBox;
     private javax.swing.JRadioButton MonthlyRadioButton;

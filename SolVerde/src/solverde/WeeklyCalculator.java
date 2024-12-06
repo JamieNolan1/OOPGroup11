@@ -10,7 +10,7 @@ package solverde;
  */
 public class WeeklyCalculator extends CostCalculator {
     public WeeklyCalculator() {
-        super(0.15); //15% reduction
+        super(0.15); //15% price reduction for calculation
     }
     
 }

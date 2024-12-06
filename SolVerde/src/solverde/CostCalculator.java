@@ -15,6 +15,11 @@ public class CostCalculator {
         this.percentage = percentage; //applies the percentage of whatever subclass is in use to the variable
     }
     
+    
+    
+    
+    
+    
     public double calculate(double currentCost){
         return currentCost * (1 - percentage); //shared calulation logic for all subcasses using whatever percentage is picked
     }
